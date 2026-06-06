@@ -1,0 +1,602 @@
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: system-ui, -apple-system, Arial;
+  background: #0b0f14;
+  color: white;
+}
+
+/* =========================
+   DASHBOARD WRAPPER
+========================= */
+.dashboard {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, Inter, Arial, sans-serif;
+}
+
+
+/* dark overlay over background image */
+.dashboard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 10, 15, 0.65);
+  z-index: 0;
+}
+
+/* keep content above overlay */
+.dashboard > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================
+   TITLE
+========================= */
+.heroTitle {
+  font-size: 3rem;
+  font-weight: 600;
+  letter-spacing: -1px;
+  font-family: system-ui, -apple-system, Arial;
+  padding: 60px 60px 10px;
+  color: #eafff6;
+}
+
+/* spacing so background shows through */
+.topSpacer {
+  height: 500px;
+}
+
+/* =========================
+   CONTENT LAYOUT
+========================= */
+.content {
+  padding: 0 60px 80px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.full {
+  grid-column: span 2;
+}
+
+
+.card {
+  padding: 20px;
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(14px);
+
+  transition: all 0.25s ease;
+
+  position: relative;
+}
+
+
+.card:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(120, 255, 214, 0.12)
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  transform: translateY(-4px);
+}
+
+
+.card h2 {
+  margin-bottom: 10px;
+  color: #eafff6;
+}
+
+.card p {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.line {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.status {
+  color: #bfffe9;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .content {
+    padding: 0 20px 60px;
+  }
+
+  .heroTitle {
+    padding: 50px 20px 10px;
+    font-size: 2.3rem;
+  }
+}
+
+.greeting {
+  position: absolute;
+
+  /* center it in the empty top space */
+  top: 400px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  z-index: 5;
+  text-align: center;
+}
+
+.greetingText {
+  font-family: "Snell Roundhand", "Brush Script MT", cursive;
+  font-size: 4.2rem;
+
+  color: #eafff6;
+
+  opacity: 0;
+  transform: translateY(20px);
+  filter: blur(10px);
+
+  white-space: nowrap;
+
+  animation: softReveal 3s ease forwards;
+}
+
+@keyframes softReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+    filter: blur(12px);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(2px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+.greetingText {
+  animation:
+    softReveal 3s ease forwards,
+    fadeOut 1.2s ease forwards;
+  animation-delay: 0s, 5s;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.newsCard {
+  height: 100%;
+}
+
+.newsWrapper {
+  position: absolute;
+  top: 80px;
+  right: 50px;
+  width: 320px;
+  z-index: 10;
+}
+
+.newsContent h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.newsContent p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  max-height: 120px;
+  overflow: hidden;
+}
+
+.newsControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 15px;
+}
+
+.newsControls button {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+
+  padding: 6px 10px;
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.newsControls button:hover {
+  background: rgba(120, 255, 214, 0.2);
+}
+
+/* FIXED CARD SIZE */
+.fixedNewsCard {
+  position: relative;
+  width: 320px;
+  height: 260px; /* 🔥 prevents resizing */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* content stays inside fixed area */
+.newsContent {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* SIDE ARROWS */
+.navBtn {
+  position: absolute;
+  top: 92%;
+  transform: translateY(-50%);
+
+  width: 28px;
+  height: 28px;
+
+  border-radius: 50%;
+  border: none;
+
+  background: rgba(255,255,255,0.1);
+  color: white;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s ease;
+}
+
+.navBtn:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.navBtn.left {
+  left: 6px;
+}
+
+.navBtn.right {
+  right: 6px;
+}
+
+/* DOTS */
+.dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.3);
+}
+
+.dot.active {
+  background: white;
+}
+
+.fixedNewsCard {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.fixedNewsCard:hover {
+  transform: scale(1.01);
+}
+
+.nav {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+
+  display: flex;
+  gap: 25px;
+
+  padding: 10px 18px;
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(180, 220, 255, 0.2);
+  border-radius: 999px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: rgba(210, 240, 255, 0.9);
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.nav a:hover {
+  color: white;
+  text-shadow: 0 0 10px rgba(180, 220, 255, 0.6);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+.footer {
+  margin-top: 120px;
+  padding: 80px 40px;
+
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+
+  border-top: 1px solid rgba(180, 220, 255, 0.15);
+
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle glow gradient wash */
+.footer::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -20%;
+  width: 140%;
+  height: 200%;
+
+  background: radial-gradient(
+    circle at center,
+    rgba(120, 200, 255, 0.08),
+    transparent 60%
+  );
+
+  pointer-events: none;
+}
+
+.footer h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+
+  color: white;
+  letter-spacing: -0.5px;
+}
+
+.footer p {
+  max-width: 700px;
+  margin: 0 auto 12px auto;
+
+  font-size: 15px;
+  line-height: 1.6;
+
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* small highlight line under title */
+.footer h2::after {
+  content: "";
+  display: block;
+
+  width: 60px;
+  height: 2px;
+
+  margin: 12px auto 0;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(120, 200, 255, 0.8),
+    transparent
+  );
+}
+
+.fixedNewsCard h2 {
+  margin: 0 0 10px 0;   /* removes default ugly spacing */
+  
+  letter-spacing: 0.5px;
+  opacity: 0.85;
+}
+
+.card.full {
+  margin-top: 60px;
+}
+
+@media (max-width: 1100px) {
+
+  .newsWrapper {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .fixedNewsCard {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .nav {
+    gap: 12px;
+    padding: 8px 14px;
+  }
+
+  .nav a {
+    font-size: 13px;
+  }
+
+  .heroTitle {
+    font-size: 2.4rem;
+    padding: 40px 20px 10px;
+    text-align: center;
+  }
+
+  .topSpacer {
+    height: 260px;
+  }
+
+  .greeting {
+    top: 220px;
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  .greetingText {
+    font-size: 2.4rem;
+    white-space: normal;
+  }
+
+  .content {
+    padding: 0 20px 60px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full {
+    grid-column: span 1;
+  }
+
+  .card.full {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .heroTitle {
+    font-size: 1.8rem;
+  }
+
+  .topSpacer {
+    height: 180px;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 20px;
+  }
+
+  .newsWrapper {
+    margin-top: 10px;
+  }
+
+  .fixedNewsCard {
+    height: auto;
+  }
+
+  .line {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
+
+@media (min-width: 1600px) {
+
+  .content {
+    max-width: 1400px;
+  }
+
+  .heroTitle {
+    font-size: 3.5rem;
+  }
+
+  .topSpacer {
+    height: 600px;
+  }
+
+  .fixedNewsCard {
+    width: 360px;
+    height: 280px;
+  }
+}
+
+.status {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* GOOD SERVICE */
+.status.good {
+  background: rgba(120, 255, 170, 0.15);
+  color: #7CFFB2;
+  border: 1px solid rgba(120, 255, 170, 0.3);
+}
+
+/* PARTIAL / DISRUPTION */
+.status.partial {
+  background: rgba(255, 170, 80, 0.15);
+  color: #ffb36b;
+  border: 1px solid rgba(255, 170, 80, 0.3);
+}
+
+/* PLANNED WORKS */
+.status.planned {
+  background: rgba(255, 200, 80, 0.12);
+  color: #ffd36b;
+  border: 1px solid rgba(255, 200, 80, 0.25);
+}
+
+/* BAD / CLOSED / SUSPENDED */
+.status.bad {
+  background: rgba(255, 80, 80, 0.15);
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 80, 80, 0.3);
+}
+
+/* DEFAULT */
+.status.neutral {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
+}
